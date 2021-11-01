@@ -23,6 +23,17 @@
       <version>2.13.0</version>
     </dependency>
     <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
+    <dependency>
       <groupId>com.epam.esm</groupId>
       <artifactId>service</artifactId>
       <version>1.0-SNAPSHOT</version>
@@ -31,6 +42,16 @@
       <groupId>com.epam.esm</groupId>
       <artifactId>model</artifactId>
       <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.mangofactory</groupId>
+      <artifactId>swagger-springmvc</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>3.3.5</version>
     </dependency>
   </dependencies>
 
