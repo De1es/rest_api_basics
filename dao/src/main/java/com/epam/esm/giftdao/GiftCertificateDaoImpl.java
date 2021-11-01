@@ -1,7 +1,6 @@
-package com.epam.esm.giftdao.impl;
+package com.epam.esm.giftdao;
 
 import com.epam.esm.gift.GiftCertificate;
-import com.epam.esm.giftdao.GiftCertificateDao;
 import com.epam.esm.giftdao.mapper.GiftRowMapper;
 import lombok.Data;
 import org.springframework.jdbc.core.JdbcTemplate;

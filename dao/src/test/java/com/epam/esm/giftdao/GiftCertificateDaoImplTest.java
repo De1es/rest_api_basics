@@ -1,8 +1,8 @@
-package com.epam.esm.giftdao.impl;
+package com.epam.esm.giftdao;
 
 import com.epam.esm.gift.GiftCertificate;
 import com.epam.esm.giftdao.GiftCertificateDao;
-import com.epam.esm.giftdao.config.DaoDevConfig;
+import com.epam.esm.config.DaoDevConfig;
 import lombok.Data;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

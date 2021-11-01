@@ -17,11 +17,7 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>4.0.1</version>
     </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.13.0</version>
-    </dependency>
+
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-boot-starter</artifactId>
@@ -32,7 +28,6 @@
       <artifactId>springfox-swagger-ui</artifactId>
       <version>3.0.0</version>
     </dependency>
-
     <dependency>
       <groupId>com.epam.esm</groupId>
       <artifactId>service</artifactId>
@@ -51,7 +46,7 @@
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>bootstrap</artifactId>
-      <version>3.3.5</version>
+      <version>5.1.1</version>
     </dependency>
   </dependencies>
 

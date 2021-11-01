@@ -18,7 +18,9 @@ public class GiftController {
 
   @GetMapping("/")
   public List<GiftCertificate> findALlGifts() {
-    return giftCertificateService.readAll();
+    List <GiftCertificate> gifts = giftCertificateService.readAll();
+    System.out.println(gifts);
+    return gifts;
   }
 
   @PostMapping("/")
