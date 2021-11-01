@@ -1,6 +1,5 @@
-package com.epam.esm.impl;
+package com.epam.esm.giftservice;
 
-import com.epam.esm.GiftCertificateService;
 import com.epam.esm.gift.GiftCertificate;
 import com.epam.esm.giftdao.GiftCertificateDao;
 import lombok.Data;

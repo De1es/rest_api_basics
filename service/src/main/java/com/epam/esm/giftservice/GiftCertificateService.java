@@ -1,4 +1,4 @@
-package com.epam.esm;
+package com.epam.esm.giftservice;
 
 import com.epam.esm.gift.GiftCertificate;
 

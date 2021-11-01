@@ -33,6 +33,9 @@ public class WebConfig implements WebMvcConfigurer, WebApplicationInitializer {
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addViewController("/swagger-ui/")
         .setViewName("forward:" + "/swagger-ui/index.html");
+    registry.addViewController("/")
+        .setViewName("redirect:" + "/swagger-ui/");
+
   }
 
 
