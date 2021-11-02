@@ -99,4 +99,16 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     }
     return -1;
   }
+
+  @Override
+  public int addTagToGift(Long giftId, Long tagId) {
+    SimpleJdbcInsert jdbcInsert =
+        new SimpleJdbcInsert(Objects.requireNonNull(jdbcTemplate.getDataSource())).withTableName(
+            "gift_certificate_tag");
+    Map<String, Object> params = new HashMap<>();
+    params.put("gift_certificate_id", giftId);
+    params.put("tag_id", tagId);
+
+    return jdbcInsert.execute(params);
+  }
 }

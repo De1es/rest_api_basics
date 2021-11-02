@@ -1,12 +1,14 @@
 package com.epam.esm.gift;
 
 
+import com.epam.esm.tag.Tag;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +23,7 @@ public class GiftCertificate {
   private LocalDateTime createDate;
   @JsonFormat (pattern="yyyy-MM-dd HH:mm:ss")
   private LocalDateTime lastUpdateDate;
+  private List<Tag> tags;
 
   public GiftCertificate(String name, String description, int price, int duration, LocalDateTime createDate,
                          LocalDateTime lastUpdateDate) {

@@ -12,4 +12,5 @@ public interface GiftCertificateDao {
   int update (GiftCertificate gift);
   Long delete (Long id);
   int countAll();
+  int addTagToGift(Long giftId, Long tagId);
 }

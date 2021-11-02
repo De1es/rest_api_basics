@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +39,7 @@ class GiftCertificateServiceImplTest {
         LocalDateTime.of(2020, 6, 7, 20, 20));
     testGiftWithId = new GiftCertificate(1L,"Gift", "Description", 1, 10,
         LocalDateTime.of(2020, 12, 15, 10, 10),
-        LocalDateTime.of(2020, 6, 7, 20, 20));
+        LocalDateTime.of(2020, 6, 7, 20, 20), new LinkedList<>());
     gifts = new ArrayList<>();
     gifts.add(testGiftWithId);
   }
