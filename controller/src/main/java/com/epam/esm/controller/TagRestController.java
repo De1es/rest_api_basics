@@ -1,11 +1,19 @@
 package com.epam.esm.controller;
 
+import com.epam.esm.dto.tag.TagDTO;
+import com.epam.esm.dto.tag.TagResponseDTO;
+import com.epam.esm.mapper.TagDtoMapper;
 import com.epam.esm.tag.Tag;
 import com.epam.esm.tagservice.TagService;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * The TagRestController class
+ */
 @RestController
 @RequestMapping(value = "/api/tags", produces = MediaType.APPLICATION_JSON_VALUE)
 @Data
@@ -13,19 +21,46 @@ public class TagRestController {
 
   private final TagService tagService;
 
+  private final TagDtoMapper tagDtoMapper;
+
+  /**
+   * Create new Tag
+   *
+   * @param tagDTO TagCreation DTO
+   * @return {@link TagResponseDTO}
+   */
   @PostMapping("/")
-  public Tag saveTag(@RequestBody Tag tag) {
-    return tagService.save(tag);
+  public ResponseEntity<TagResponseDTO> saveTag(@RequestBody TagDTO tagDTO) {
+    final Tag tag = tagDtoMapper.mapDtoToCreateModel(tagDTO);
+    final TagResponseDTO tagResponseDTO = tagDtoMapper.mapModelToResponseDto(tagService.save(tag));
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(tagResponseDTO);
   }
 
+  /**
+   * Find tag by id
+   *
+   * @param id Tag id
+   * @return {@link TagResponseDTO}
+   */
   @GetMapping("/{id}")
-  public Tag findTagById(@PathVariable Long id) {
-    return tagService.readById(id);
+  public ResponseEntity<TagResponseDTO> findTagById(@PathVariable Long id) {
+    final TagResponseDTO tagResponseDTO = tagDtoMapper.mapModelToResponseDto(tagService.readById(id));
+    return ResponseEntity.status(HttpStatus.OK)
+        .body(tagResponseDTO);
   }
 
+  /**
+   * Delete Tag by id
+   *
+   * @param id Tag id
+   * @return {@link Void}
+   */
   @DeleteMapping("/{id}")
-  public Long deleteTagById(@PathVariable Long id) {
-    return tagService.delete(id);
+  public ResponseEntity<Void> deleteTagById(@PathVariable Long id) {
+    tagService.delete(id);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        .build();
   }
 
 }
