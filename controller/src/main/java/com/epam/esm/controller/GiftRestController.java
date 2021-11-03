@@ -25,10 +25,26 @@ public class GiftRestController {
 
   private final GiftCertificateDtoMapperImpl giftDtoMapper;
 
-  // TODO Add finding by part of name, tag
+
+  /**
+   * Get list of GiftCertificates
+   *
+   * @param tagName    Tag name
+   * @param partOfName part of GiftCertificate name
+   * @param limit      count of read items
+   * @param sortBy     sort by name/last_update_date/create_date
+   * @param sortOrder  sort order ASC/DESC
+   * @return list of {@link GiftCertificate}
+   */
   @GetMapping("/")
-  public List<GiftCertificate> findALlGifts() {
-    return giftCertificateService.readAll();
+  public ResponseEntity<List<GiftCertificate>> getGiftsList(@RequestParam(name = "tagName", required = false) String tagName,
+                                                            @RequestParam(name = "partOfName", required = false) String partOfName,
+                                                            @RequestParam(name = "limit", defaultValue = "10") int limit,
+                                                            @RequestParam(name = "sortBy", defaultValue = "name") String sortBy,
+                                                            @RequestParam(name = "sortOrder", defaultValue = "ASC") String sortOrder) {
+    return ResponseEntity.status(HttpStatus.OK)
+        .body(giftCertificateService.list(tagName, partOfName, limit, sortBy,
+            sortOrder));
   }
 
   /**

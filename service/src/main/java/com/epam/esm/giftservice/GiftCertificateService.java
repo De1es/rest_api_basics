@@ -25,8 +25,17 @@ public interface GiftCertificateService {
    */
   GiftCertificate readById(Long id);
 
-
-  List<GiftCertificate> readAll();
+  /**
+   * Find list of GiftCertificates
+   *
+   * @param tagName    Tag name
+   * @param partOfName part of GiftCertificate name
+   * @param limit      count of read items
+   * @param sortBy     sort by name/last_update_date/create_date
+   * @param sortOrder  sort order ASC/DESC
+   * @return list of {@link GiftCertificate}
+   */
+  List<GiftCertificate> list(String tagName, String partOfName, int limit, String sortBy, String sortOrder);
 
   /**
    * Update GiftCertificate
