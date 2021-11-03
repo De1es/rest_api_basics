@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @Data
@@ -36,7 +38,7 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
   @Transactional
   public GiftCertificate readById(Long id) {
     GiftCertificate gift = giftDao.readById(id);
-    List <Tag> tags = tagDao.readTagsForGift(id);
+    List<Tag> tags = tagDao.readTagsForGift(id);
     gift.setTags(tags);
     return gift;
   }
@@ -47,8 +49,30 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
   }
 
   @Override
-  public int update(GiftCertificate gift) {
-    return giftDao.update(gift);
+  @Transactional
+  public GiftCertificate update(GiftCertificate gift) {
+    giftDao.update(gift);
+    List<String> newTagsNames = gift.getTags()
+        .stream()
+        .map(Tag::getName)
+        .collect(Collectors.toList());
+    System.out.println(newTagsNames);
+    List<String> oldTagsNames = tagDao.readTagsForGift(gift.getId())
+        .stream()
+        .map(Tag::getName)
+        .collect(Collectors.toList());
+    System.out.println(oldTagsNames);
+    oldTagsNames.stream()
+        .filter(Predicate.not(newTagsNames::contains))
+        .forEach((name) -> tagDao.deleteTagFromGiftCertificateByName(gift.getId(), name));
+
+    newTagsNames.stream()
+        .filter(Predicate.not(oldTagsNames::contains))
+        .map((name) -> tagDao.create(new Tag(name)))
+        .forEach((tag) -> tagDao.addTagToGiftCertificateByName(gift.getId(), tag.getName()));
+
+    gift.setTags(tagDao.readTagsForGift(gift.getId()));
+    return gift;
   }
 
   @Override

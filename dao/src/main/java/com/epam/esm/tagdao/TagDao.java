@@ -55,4 +55,20 @@ public interface TagDao {
    * @return list of {@link Tag}
    */
   List<Tag> readTagsForGift(Long giftId);
+
+  /**
+   * Delete Tag from GiftCertificate by Tag name
+   *
+   * @param GiftId  GiftCertificate id
+   * @param tagName Tag name
+   */
+  void deleteTagFromGiftCertificateByName(Long GiftId, String tagName);
+
+  /**
+   * Add tag to GiftCertificate by Tag name
+   *
+   * @param GiftId  GiftCertificate id
+   * @param tagName Tag name
+   */
+  void addTagToGiftCertificateByName(Long GiftId, String tagName);
 }

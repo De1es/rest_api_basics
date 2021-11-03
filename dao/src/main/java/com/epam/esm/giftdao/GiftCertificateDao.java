@@ -4,13 +4,58 @@ import com.epam.esm.gift.GiftCertificate;
 
 import java.util.List;
 
+/**
+ * The GiftCertificateDao interface
+ */
 public interface GiftCertificateDao {
 
-  GiftCertificate create (GiftCertificate gift);
-  GiftCertificate readById (Long id);
-  List <GiftCertificate> readAll ();
-  int update (GiftCertificate gift);
-  Long delete (Long id);
+  /**
+   * Create new GiftCertificate
+   *
+   * @param gift {@link GiftCertificate}
+   * @return {@link GiftCertificate}
+   */
+  GiftCertificate create(GiftCertificate gift);
+
+  /**
+   * Find GiftCertificate by id
+   *
+   * @param id GiftCertificate id
+   * @return {@link GiftCertificate}
+   */
+  GiftCertificate readById(Long id);
+
+
+  List<GiftCertificate> readAll();
+
+  /**
+   * Update GiftCertificate
+   *
+   * @param gift {@link GiftCertificate}
+   * @return count of updated rows
+   */
+  int update(GiftCertificate gift);
+
+  /**
+   * Delete GiftCertificate by id
+   *
+   * @param id GiftCertificate id
+   * @return {@link Long}
+   */
+  Long delete(Long id);
+
+  /**
+   * Return count of all GiftCertificate
+   *
+   * @return count of GiftCertificate
+   */
   int countAll();
-  int addTagToGift(Long giftId, Long tagId);
+
+  /**
+   * Add Tag to GiftCertificate
+   *
+   * @param giftId GiftCertificate id
+   * @param tagId  Tag id
+   */
+  void addTagToGift(Long giftId, Long tagId);
 }

@@ -101,7 +101,7 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
   }
 
   @Override
-  public int addTagToGift(Long giftId, Long tagId) {
+  public void addTagToGift(Long giftId, Long tagId) {
     SimpleJdbcInsert jdbcInsert =
         new SimpleJdbcInsert(Objects.requireNonNull(jdbcTemplate.getDataSource())).withTableName(
             "gift_certificate_tag");
@@ -109,6 +109,6 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     params.put("gift_certificate_id", giftId);
     params.put("tag_id", tagId);
 
-    return jdbcInsert.execute(params);
+    jdbcInsert.execute(params);
   }
 }
