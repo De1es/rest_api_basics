@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -23,7 +24,7 @@ public class GiftCertificate {
   private LocalDateTime createDate;
   @JsonFormat (pattern="yyyy-MM-dd HH:mm:ss")
   private LocalDateTime lastUpdateDate;
-  private List<Tag> tags;
+  private List<Tag> tags = new LinkedList<>();
 
   public GiftCertificate(String name, String description, int price, int duration, LocalDateTime createDate,
                          LocalDateTime lastUpdateDate) {
@@ -33,6 +34,10 @@ public class GiftCertificate {
     this.duration = duration;
     this.createDate = createDate;
     this.lastUpdateDate = lastUpdateDate;
+  }
+
+  public void addTag (Tag tag) {
+    tags.add(tag);
   }
 
 }

@@ -43,9 +43,10 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
     return gift;
   }
 
+
   @Override
-  public List<GiftCertificate> readAll() {
-    return giftDao.readAll();
+  public List<GiftCertificate> list(String tagName, String partOfName, int limit, String sortBy, String sortOrder) {
+    return giftDao.list(tagName, partOfName, limit, sortBy, sortOrder);
   }
 
   @Override

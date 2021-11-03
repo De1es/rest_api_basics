@@ -2,6 +2,7 @@ package com.epam.esm.giftdao;
 
 import com.epam.esm.gift.GiftCertificate;
 import com.epam.esm.giftdao.mapper.GiftRowMapper;
+import com.epam.esm.giftdao.mapper.GiftWithTagsExtractor;
 import lombok.Data;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -10,10 +11,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Repository
 @Data
@@ -23,9 +21,16 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
   private final String READ_ALL_QUERY = "SELECT * FROM public.gift_certificate";
   private final String COUNT_ALL_QUERY = "SELECT COUNT(*) FROM gift_certificate";
   private final String DELETE_QUERY = "DELETE FROM gift_certificate where id = ?";
+  private final String LIST_BY_TAG_NAME_QUERY =
+      "SELECT g.id, g.name, g.description, g.price, g.duration, g.create_date, g.last_update_date, t.id as t_id," +
+          " t.name as t_name\n" +
+          "\tFROM public.gift_certificate g \n" +
+          "\tLEFT JOIN public.gift_certificate_tag gt on (g.id = gt.gift_certificate_id)\n" +
+          "\tLEFT JOIN public.tag t on (gt.tag_id = t.id)\n";
 
   final JdbcTemplate jdbcTemplate;
   final GiftRowMapper giftRowMapper;
+  final GiftWithTagsExtractor giftWithTagsExtractor;
 
 
   @Override
@@ -51,10 +56,40 @@ public class GiftCertificateDaoImpl implements GiftCertificateDao {
     return jdbcTemplate.queryForObject(READ_BY_ID_QUERY, giftRowMapper, id);
   }
 
+
   @Override
-  public List<GiftCertificate> readAll() {
-    return jdbcTemplate.query(READ_ALL_QUERY, giftRowMapper);
+  public List<GiftCertificate> list(String tagName, String partOfName, int limit, String sortBy, String sortOrder) {
+    StringBuilder query = new StringBuilder(LIST_BY_TAG_NAME_QUERY);
+    MapSqlParameterSource params = new MapSqlParameterSource();
+    StringJoiner stringJoiner = new StringJoiner(" AND ", "WHERE ", "");
+    if (tagName != null) {
+      stringJoiner.add("t.name = :tagName");
+      params.addValue("tagName", tagName);
+    }
+    if (partOfName != null) {
+      String name = "%" + partOfName + "%";
+      stringJoiner.add("g.name LIKE :partOfName");
+      params.addValue("partOfName", name);
+    }
+    if (tagName != null || partOfName != null) {
+      query.append(stringJoiner);
+    }
+    if (sortBy != null) {
+      query.append(" ORDER BY g.");
+      query.append(sortBy);
+      if (sortOrder != null) {
+        query.append(" ");
+        query.append(sortOrder);
+      }
+    }
+    if (limit != 0) {
+      query.append(" LIMIT :limit");
+      params.addValue("limit", limit);
+    }
+    NamedParameterJdbcTemplate namedJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+    return namedJdbcTemplate.query(query.toString(), params, giftWithTagsExtractor);
   }
+
 
   @Override
   public int update(GiftCertificate gift) {
