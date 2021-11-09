@@ -18,11 +18,11 @@ public class GiftWithTagsExtractor implements ResultSetExtractor<List<GiftCertif
   @Override
   public List<GiftCertificate> extractData(ResultSet rs) throws SQLException, DataAccessException {
     Map<Long, GiftCertificate> gifts = new HashMap<>();
-    while (rs.next()){
+    while (rs.next()) {
       GiftCertificate giftCertificate = new GiftCertificate();
       Tag tag = new Tag();
       Long giftId = rs.getLong("id");
-      if (gifts.containsKey(giftId)){
+      if (gifts.containsKey(giftId)) {
         giftCertificate = gifts.get(giftId);
       } else {
         giftCertificate.setId(giftId);

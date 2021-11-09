@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 class TagServiceImplTest {
 
   @Mock
-  TagDao daoMock;
+  TagDao tagDaoMock;
 
   @InjectMocks
   TagServiceImpl tagService;
@@ -35,23 +35,23 @@ class TagServiceImplTest {
 
   @Test
   void save() {
-    when(daoMock.create(testTagWithoutId)).thenReturn(testTagWithId);
+    when(tagDaoMock.create(testTagWithoutId)).thenReturn(testTagWithId);
     assertEquals(testTagWithId, tagService.save(testTagWithoutId));
-    verify(daoMock).create(testTagWithoutId);
+    verify(tagDaoMock).create(testTagWithoutId);
   }
 
   @Test
   void readById() {
-    when(daoMock.readById(1L)).thenReturn(testTagWithId);
+    when(tagDaoMock.readById(1L)).thenReturn(testTagWithId);
     assertEquals(testTagWithId, tagService.readById(1L));
-    verify(daoMock).readById(1L);
+    verify(tagDaoMock).readById(1L);
   }
 
   @Test
   void delete() {
-    when(daoMock.delete(testTagWithId.getId())).thenReturn(10L);
+    when(tagDaoMock.delete(testTagWithId.getId())).thenReturn(10L);
     assertEquals(10L, tagService.delete(testTagWithId.getId()));
-    verify(daoMock).delete(testTagWithId.getId());
+    verify(tagDaoMock).delete(testTagWithId.getId());
 
   }
 }

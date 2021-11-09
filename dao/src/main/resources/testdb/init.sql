@@ -32,3 +32,27 @@ VALUES ('Tag4');
 
 INSERT INTO tag(name)
 VALUES ('Tag5');
+
+INSERT INTO public.gift_certificate_tag(gift_certificate_id, tag_id)
+VALUES (1, 2);
+
+INSERT INTO public.gift_certificate_tag(gift_certificate_id, tag_id)
+VALUES (1, 3);
+
+INSERT INTO public.gift_certificate_tag(gift_certificate_id, tag_id)
+VALUES (2, 1);
+
+INSERT INTO public.gift_certificate_tag(gift_certificate_id, tag_id)
+VALUES (3, 1);
+
+INSERT INTO public.gift_certificate_tag(gift_certificate_id, tag_id)
+VALUES (3, 3);
+
+INSERT INTO public.gift_certificate_tag(gift_certificate_id, tag_id)
+VALUES (3, 4);
+
+INSERT INTO public.gift_certificate_tag(gift_certificate_id, tag_id)
+VALUES (5, 2);
+
+INSERT INTO public.gift_certificate_tag(gift_certificate_id, tag_id)
+VALUES (5, 5);

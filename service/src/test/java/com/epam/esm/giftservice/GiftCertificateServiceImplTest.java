@@ -2,6 +2,7 @@ package com.epam.esm.giftservice;
 
 import com.epam.esm.gift.GiftCertificate;
 import com.epam.esm.giftdao.GiftCertificateDao;
+import com.epam.esm.tagdao.TagDao;
 import lombok.Data;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,10 @@ import static org.mockito.Mockito.*;
 class GiftCertificateServiceImplTest {
 
   @Mock
-  GiftCertificateDao daoMock;
+  GiftCertificateDao giftDaoMock;
+
+  @Mock
+  TagDao tagDaoMock;
 
   @InjectMocks
   GiftCertificateServiceImpl giftCertificateService;
@@ -37,7 +41,7 @@ class GiftCertificateServiceImplTest {
     testGiftWithoutId = new GiftCertificate("Gift", "Description", 1, 10,
         LocalDateTime.of(2020, 12, 15, 10, 10),
         LocalDateTime.of(2020, 6, 7, 20, 20));
-    testGiftWithId = new GiftCertificate(1L,"Gift", "Description", 1, 10,
+    testGiftWithId = new GiftCertificate(1L, "Gift", "Description", 1, 10,
         LocalDateTime.of(2020, 12, 15, 10, 10),
         LocalDateTime.of(2020, 6, 7, 20, 20), new LinkedList<>());
     gifts = new ArrayList<>();
@@ -47,36 +51,43 @@ class GiftCertificateServiceImplTest {
 
   @Test
   void save() {
-    when(daoMock.create(testGiftWithoutId)).thenReturn(testGiftWithId);
+    when(giftDaoMock.create(testGiftWithoutId)).thenReturn(testGiftWithId);
+    when(tagDaoMock.updateTagsForGift(testGiftWithId)).thenReturn(testGiftWithId);
     assertEquals(testGiftWithId, giftCertificateService.save(testGiftWithoutId));
-    verify(daoMock).create(testGiftWithoutId);
+    verify(giftDaoMock).create(testGiftWithoutId);
   }
 
   @Test
   void readById() {
-    when(daoMock.readById(1L)).thenReturn(testGiftWithId);
+    when(giftDaoMock.readById(1L)).thenReturn(testGiftWithId);
     assertEquals(testGiftWithId, giftCertificateService.readById(1L));
-    verify(daoMock).readById(1L);
+    verify(giftDaoMock).readById(1L);
   }
 
   @Test
-  void readAll() {
-    when(daoMock.readAll()).thenReturn(gifts);
-    assertEquals(gifts, giftCertificateService.readAll());
-    verify(daoMock).readAll();
+  void list() {
+    when(giftDaoMock.list("tagName", "partOfName", 5, "name", "DESC"))
+        .thenReturn(new LinkedList<>());
+    assertEquals(new LinkedList<>(),
+        giftCertificateService.list("tagName", "partOfName", 5, "name", "DESC"));
+    verify(giftDaoMock).list("tagName", "partOfName", 5, "name", "DESC");
   }
 
   @Test
   void update() {
-    when(daoMock.update(testGiftWithoutId)).thenReturn(1);
-    assertEquals(giftCertificateService.update(testGiftWithoutId), 1);
-    verify(daoMock).update(testGiftWithoutId);
+    when(giftDaoMock.update(testGiftWithoutId)).thenReturn(1);
+    when(tagDaoMock.updateTagsForGift(testGiftWithoutId)).thenReturn(testGiftWithoutId);
+    assertEquals(giftCertificateService.update(testGiftWithoutId), testGiftWithoutId);
+    verify(giftDaoMock).update(testGiftWithoutId);
+    verify(tagDaoMock).updateTagsForGift(testGiftWithoutId);
   }
 
   @Test
   void delete() {
-    when(daoMock.delete(testGiftWithId.getId())).thenReturn(1L);
+    when(giftDaoMock.delete(testGiftWithId.getId())).thenReturn(1L);
     assertEquals(1L, giftCertificateService.delete(1L));
-    verify(daoMock).delete(testGiftWithId.getId());
+    verify(giftDaoMock).delete(testGiftWithId.getId());
   }
+
+
 }

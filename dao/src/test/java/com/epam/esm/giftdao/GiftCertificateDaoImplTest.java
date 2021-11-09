@@ -1,7 +1,6 @@
 package com.epam.esm.giftdao;
 
 import com.epam.esm.gift.GiftCertificate;
-import com.epam.esm.giftdao.GiftCertificateDao;
 import com.epam.esm.config.DaoDevConfig;
 import lombok.Data;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,7 +45,7 @@ class GiftCertificateDaoImplTest {
   void create() {
     int countBeforeCreate = giftCertificateDao.countAll();
     giftCertificateDao.create(testGift);
-    int  countAfterCreate = giftCertificateDao.countAll();
+    int countAfterCreate = giftCertificateDao.countAll();
     assertEquals(countAfterCreate - countBeforeCreate, 1);
   }
 
@@ -61,11 +60,10 @@ class GiftCertificateDaoImplTest {
   }
 
   @Test
-  @Transactional
-  void readAll() {
-    List<GiftCertificate> gifts = giftCertificateDao.readAll();
-    int countOfAll = giftCertificateDao.countAll();
-    assertEquals(countOfAll, gifts.size());
+  void list() {
+    List<GiftCertificate> giftCertificates =
+        giftCertificateDao.list("Tag2", null, 10, "name", "DESC");
+    assertEquals(2, giftCertificates.size());
   }
 
   @Test
@@ -86,8 +84,15 @@ class GiftCertificateDaoImplTest {
   void delete() {
     int countBeforeCreate = giftCertificateDao.countAll();
     giftCertificateDao.delete(1L);
-    int  countAfterCreate = giftCertificateDao.countAll();
+    int countAfterCreate = giftCertificateDao.countAll();
     assertEquals(countBeforeCreate - countAfterCreate, 1);
 
   }
+
+
+  @Test
+  void countAll() {
+    assertEquals(5, giftCertificateDao.countAll());
+  }
+
 }

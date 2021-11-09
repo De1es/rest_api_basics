@@ -26,7 +26,7 @@ public interface GiftCertificateDao {
   GiftCertificate readById(Long id);
 
   /**
-   * Find list of GiftCertificates
+   * Find list of GiftCertificates with nested Tags
    *
    * @param tagName    Tag name
    * @param partOfName part of GiftCertificate name
@@ -60,11 +60,4 @@ public interface GiftCertificateDao {
    */
   int countAll();
 
-  /**
-   * Add Tag to GiftCertificate
-   *
-   * @param giftId GiftCertificate id
-   * @param tagId  Tag id
-   */
-  void addTagToGift(Long giftId, Long tagId);
 }

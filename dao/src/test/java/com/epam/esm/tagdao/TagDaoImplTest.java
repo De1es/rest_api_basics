@@ -37,8 +37,8 @@ class TagDaoImplTest {
   void readById() {
     Tag testTag = new Tag("TestTag2");
     Tag createdTag = tagDao.create(testTag);
-    Tag readedTag = tagDao.readById(createdTag.getId());
-    assertEquals(createdTag, readedTag);
+    Tag readTag = tagDao.readById(createdTag.getId());
+    assertEquals(createdTag, readTag);
   }
 
   @Test

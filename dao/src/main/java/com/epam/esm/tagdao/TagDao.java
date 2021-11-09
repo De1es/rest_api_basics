@@ -1,5 +1,6 @@
 package com.epam.esm.tagdao;
 
+import com.epam.esm.gift.GiftCertificate;
 import com.epam.esm.tag.Tag;
 
 import java.util.List;
@@ -71,4 +72,12 @@ public interface TagDao {
    * @param tagName Tag name
    */
   void addTagToGiftCertificateByName(Long GiftId, String tagName);
+
+  /**
+   * Update GiftCertificate's Tags
+   *
+   * @param giftCertificate {@link GiftCertificate}
+   * @return {@link GiftCertificate}
+   */
+  GiftCertificate updateTagsForGift(GiftCertificate giftCertificate);
 }

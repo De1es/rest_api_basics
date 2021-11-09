@@ -19,12 +19,12 @@ create table tag
     name varchar(100) not null unique
 );
 
-create table certificates_tags
+create table gift_certificate_tag
 (
-    cert_id int not null,
+    gift_certificate_id int not null,
     tag_id  int not null,
     constraint certificates_tags_ibfk_1
-        foreign key (cert_id) references gift_certificate (id)
+        foreign key (gift_certificate_id) references gift_certificate (id)
             on update cascade on delete cascade,
     constraint certificates_tags_ibfk_2
         foreign key (tag_id) references tag (id)
@@ -32,7 +32,7 @@ create table certificates_tags
 );
 
 create index cert_id
-    on certificates_tags (cert_id);
+    on gift_certificate_tag (gift_certificate_id);
 
 create index tag_id
-    on certificates_tags (tag_id);
+    on gift_certificate_tag (tag_id);

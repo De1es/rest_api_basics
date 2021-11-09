@@ -1,6 +1,5 @@
 package com.epam.esm.dto.gift;
 
-import com.epam.esm.dto.tag.TagDTO;
 import com.epam.esm.tag.Tag;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,5 +27,5 @@ public class GiftCertificateDTO {
   @ApiModelProperty(notes = "Duration of the GiftCertificate", name = "duration", required = true)
   private int duration;
   @ApiModelProperty(notes = "List of GiftCertificate tags", name = "tags", required = true)
-  private List<Tag> tags;
+  private List<Tag> tags = new LinkedList<>();
 }
